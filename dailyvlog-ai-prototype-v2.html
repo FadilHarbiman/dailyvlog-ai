@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101018">
+<title>DailyVlog AI — Studio</title>
+<style>
+:root{color-scheme:dark;--bg:#101018;--panel:#191923;--line:#303041;--text:#f6f5fb;--muted:#aaa9bd;--accent:#b6f36a;--accent2:#d8ffab}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#25233b 0,#101018 48%);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:920px;margin:auto;padding:24px 16px 56px}.top{display:flex;align-items:center;gap:12px;margin:6px 0 28px}.logo{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:var(--accent);color:#171b10;font-weight:900;font-size:20px}.brand{font-size:20px;font-weight:800;letter-spacing:-.4px}.sub{font-size:13px;color:var(--muted)}.pill{margin-left:auto;border:1px solid #4c5a39;color:var(--accent2);padding:5px 10px;border-radius:999px;font-size:12px}
+h1{font-size:clamp(28px,6vw,44px);line-height:1.08;letter-spacing:-1.2px;margin:0 0 12px}.intro{color:var(--muted);max-width:650px;margin:0 0 26px}.notice{background:#242437;border:1px solid #45445c;border-radius:14px;padding:13px 15px;color:#d6d5e8;font-size:13px;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card{background:rgba(25,25,35,.94);border:1px solid var(--line);border-radius:18px;padding:18px;min-width:0}.full{grid-column:1/-1}.step{font-size:11px;text-transform:uppercase;letter-spacing:1.3px;color:var(--accent);font-weight:800;margin-bottom:5px}.card h2{font-size:18px;margin:0 0 4px}.help{font-size:13px;color:var(--muted);margin:0 0 14px}
+.upload{display:flex;min-height:155px;align-items:center;justify-content:center;text-align:center;border:1px dashed #55556b;border-radius:13px;padding:12px;position:relative;overflow:hidden;background:#14141d}.upload input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.upload .inside{pointer-events:none}.upload .emoji{font-size:28px}.upload strong{display:block;font-size:14px;margin-top:6px}.upload small{color:var(--muted);font-size:12px}.upload img{max-width:100%;max-height:210px;object-fit:contain;border-radius:8px}.upload.has-image{border-style:solid;border-color:#586c3f}
+label{display:block;font-weight:650;font-size:13px;margin:14px 0 7px}input[type=text],select,textarea{width:100%;background:#11111a;color:var(--text);border:1px solid #3a3a4d;border-radius:11px;padding:12px;font:inherit;outline:none}textarea{min-height:120px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--accent)}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{border:0;border-radius:12px;background:var(--accent);color:#171b10;padding:14px 18px;font-weight:850;font-size:15px;cursor:pointer;width:100%;margin-top:16px}.btn:hover{background:var(--accent2)}.btn.secondary{background:#2b2b3b;color:var(--text);border:1px solid #45455a}.status{display:none;margin-top:14px;border-radius:12px;padding:13px;background:#222b1a;border:1px solid #485a35;color:#e4f8d1;font-size:13px}.status.show{display:block}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px}
+@media(max-width:620px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.card{padding:15px}.row{grid-template-columns:1fr}.pill{font-size:11px}.wrap{padding-top:16px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="top"><div class="logo">D</div><div><div class="brand">DailyVlog AI</div><div class="sub">Your personal video studio</div></div><div class="pill">PROTOTIPE 01</div></header>
+  <h1>Ide kamu. Wajah kamu.<br><span style="color:var(--accent)">Vlog kamu.</span></h1>
+  <p class="intro">Siapkan foto referensi, pilih background, tulis naskah, lalu atur gaya video. Studio awal ini berjalan di browser kamu.</p>
+  <div class="notice">🔒 <strong>Privasi:</strong> pada prototipe ini, foto hanya ditampilkan sebagai preview di browser. Foto belum dikirim ke server atau mesin AI mana pun.</div>
+  <section class="grid">
+    <article class="card">
+      <div class="step">01 / Referensi</div><h2>Foto wajah</h2><p class="help">Pilih foto yang jelas dan pencahayaannya baik.</p>
+      <label class="upload" id="faceBox"><input id="face" type="file" accept="image/*"><span class="inside"><span class="emoji">👤</span><strong>Ketuk untuk pilih foto</strong><small>JPG, PNG, atau WebP</small></span></label>
+    </article>
+    <article class="card">
+      <div class="step">02 / Lokasi</div><h2>Background pilihanmu</h2><p class="help">Pilih gambar tempat yang ingin kamu gunakan.</p>
+      <label class="upload" id="bgBox"><input id="bg" type="file" accept="image/*"><span class="inside"><span class="emoji">🖼️</span><strong>Ketuk untuk pilih background</strong><small>JPG, PNG, atau WebP</small></span></label>
+    </article>
+    <article class="card full">
+      <div class="step">03 / Cerita</div><h2>Atur video kamu</h2>
+      <label for="script">Naskah / dialog Bahasa Indonesia</label>
+      <textarea id="script" placeholder="Contoh: Hai teman-teman! Hari ini aku mau berbagi tips memilih outfit yang nyaman untuk aktivitas sehari-hari..."></textarea>
+      <div class="row">
+        <div><label for="style">Jenis konten</label><select id="style"><option>Vlog harian</option><option>Tips outfit / fashion</option><option>Beauty / skincare</option><option>Review produk</option><option>Edukasi</option><option>Storytelling</option></select></div>
+        <div><label for="duration">Durasi target</label><select id="duration"><option value="10">10 detik (tes awal)</option><option value="15">15 detik</option><option value="30">30 detik</option><option value="60">60 detik</option></select></div>
+      </div>
+      <div class="row">
+        <div><label for="ratio">Format</label><select id="ratio"><option>Vertikal 9:16</option><option>Horizontal 16:9</option><option>Persegi 1:1</option></select></div>
+        <div><label for="language">Bahasa suara</label><select id="language"><option>Bahasa Indonesia</option><option>English</option><option>Tanpa suara</option></select></div>
+      </div>
+      <button class="btn" id="generate">Siapkan permintaan video</button>
+      <button class="btn secondary" id="clear" type="button">Hapus foto dan mulai lagi</button>
+      <div class="status" id="status" role="status"></div>
+    </article>
+  </section>
+  <div class="footer">DailyVlog AI • Prototipe lokal • Tombol video belum terhubung ke mesin AI</div>
+</main>
+<script>
+function preview(inputId, boxId, emptyIcon, title, help) {
+  const input=document.getElementById(inputId), box=document.getElementById(boxId);
+  input.addEventListener('change',()=>{
+    const file=input.files && input.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')) { alert('Pilih file gambar ya.'); input.value=''; return; }
+    const url=URL.createObjectURL(file);
+    box.classList.add('has-image');
+    box.querySelector('.inside').innerHTML='<img alt="Preview gambar pilihan" src="'+url+'"><strong>'+file.name.replace(/[<>&"]/g,'')+'</strong><small>Preview lokal di browser</small>';
+  });
+}
+preview('face','faceBox','👤','Ketuk untuk pilih foto','JPG, PNG, atau WebP');
+preview('bg','bgBox','🖼️','Ketuk untuk pilih background','JPG, PNG, atau WebP');
+document.getElementById('generate').addEventListener('click',()=>{
+ const script=document.getElementById('script').value.trim();
+ const face=document.getElementById('face').files[0], bg=document.getElementById('bg').files[0];
+ const status=document.getElementById('status');
+ if(!face || !bg || !script){status.textContent='Lengkapi foto wajah, background, dan naskah terlebih dahulu. Belum ada video yang dibuat.';status.classList.add('show');return;}
+ const duration=document.getElementById('duration').value;
+ const style=document.getElementById('style').value;
+ const ratio=document.getElementById('ratio').value;
+ const language=document.getElementById('language').value;
+ status.textContent='Form siap! Jenis: '+style+' • Durasi target: '+duration+' detik • Format: '+ratio+' • Bahasa: '+language+'. Ini masih prototipe: belum membuat video atau mengirim foto ke layanan AI.';
+ status.classList.add('show');
+});
+document.getElementById('clear').addEventListener('click',()=>{
+ ['face','bg'].forEach(id=>document.getElementById(id).value='');
+ [['faceBox','👤','Foto wajah'],['bgBox','🖼️','Background pilihanmu']].forEach(([id,emoji,title])=>{
+ const box=document.getElementById(id);box.classList.remove('has-image');box.querySelector('.inside').innerHTML='<span class="emoji">'+emoji+'</span><strong>Ketuk untuk pilih '+(id==='faceBox'?'foto':'background')+'</strong><small>JPG, PNG, atau WebP</small>';
+ });
+ document.getElementById('script').value='';document.getElementById('status').classList.remove('show');
+});
+</script>
+</body>
+</html>
